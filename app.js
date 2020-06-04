@@ -1,17 +1,18 @@
 // Initialize express
 const express = require('express')
 const app = express()
+// INITIALIZE BODY-PARSER AND ADD IT TO APP
+const bodyParser = require('body-parser');
+const models = require('./db/models');
 var exphbs = require('express-handlebars');
 
+// The following line must appear AFTER const app = express() and before your routes!
+app.use(bodyParser.urlencoded({ extended: true }));
 // Use "main" as our default layout
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 // Use handlebars to render
 app.set('view engine', 'handlebars');
 
-// Render the "home" layout for the main page and send the following msg
-app.get('/test', (req, res) => {
-    res.render('home', { msg: 'Handlebars are Cool!' });
-})
 
 // OUR MOCK ARRAY OF PROJECTS
 var events = [
@@ -20,10 +21,32 @@ var events = [
   { title: "Dog Day", desc: "A great event that is super fun to look at and good", imgUrl: "https://consequenceofsound.net/wp-content/uploads/2015/03/shiloh.jpg?w=806" }
 ]
 
-// INDEX
-app.get('/', (req, res) => {
-  res.render('events-index', { events: events });
+// Render the "home" layout for the main page and send the following msg
+app.get('/test', (req, res) => {
+    res.render('home', { msg: 'Handlebars are Cool!' });
 })
+
+// Index
+app.get('/', (req, res) => {
+  models.Event.findAll({ order: [['createdAt', 'DESC']] }).then(events => {
+    res.render('events-index', { events: events });
+  })
+})
+
+// NEW
+app.get('/events/new', (req, res) => {
+  res.render('events-new', {});
+})
+
+// CREATE
+app.post('/events', (req, res) => {
+  models.Event.create(req.body).then(event => {
+    res.redirect(`/`);
+  }).catch((err) => {
+    console.log(err)
+  });
+})
+
 
 // Choose a port to listen on
 const port = process.env.PORT || 3000;
