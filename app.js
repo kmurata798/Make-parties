@@ -26,6 +26,9 @@ var events = [
 ]
 // IMPORT events.js
 require('./controllers/events')(app, models);
+// IMPORT rsvps.js
+require('./controllers/rsvps')(app, models);
+
 
 // Render the "home" layout for the main page and send the following msg
 app.get('/test', (req, res) => {
