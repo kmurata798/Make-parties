@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "name": "make-parties",
   "version": "1.0.0",
   "description": "Users can view all events (index) Users can create a event (new/create) Users can view one event (show) Users can edit a event (edit/update) Users can delete a event (destroy)",
