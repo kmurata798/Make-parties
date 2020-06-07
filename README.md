@@ -1,3 +1,5 @@
+# LIVE HEROKU LINK: [Link to Make-Parties website!](https://make-parties-km.herokuapp.com)
+
 ## User Stories:
 
 Users can view all events (index)
