@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const models = require('./db/models');
 var exphbs = require('express-handlebars');
 
+
 // The following line must appear AFTER const app = express() and before your routes!
 app.use(bodyParser.urlencoded({ extended: true }));
 // Use the MethodOverride I imported to change POST requests to PUT requests
